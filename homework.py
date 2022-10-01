@@ -153,9 +153,9 @@ class Swimming(Training):
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     codes_and_classes = {
-                        'SWM': Swimming,
-                        'RUN': Running,
-                        'WLK': SportsWalking
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking
     }
     return codes_and_classes[workout_type](*data)
     pass
