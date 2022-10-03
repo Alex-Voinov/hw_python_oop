@@ -64,8 +64,9 @@ class Running(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return (
-            (self.COEFF_CALORIE_1 * self.get_mean_speed()
-            - self.COEFF_CALORIE_2) * self.weight / self.M_IN_KM
+            (self.COEFF_CALORIE_1
+             * self.get_mean_speed() - self.COEFF_CALORIE_2)
+            * self.weight / self.M_IN_KM
             * self.duration * self.MINS_IN_HOURS
             )
 
@@ -84,8 +85,8 @@ class SportsWalking(Training):
         """Получить количество затраченных калорий."""
         return (
             (self.COEFF_CALORIE_1 * self.weight
-            + (self.get_mean_speed()**2 // self.height)
-            * self.COEFF_CALORIE_2 * self.weight)
+             + (self.get_mean_speed()**2 // self.height)
+             * self.COEFF_CALORIE_2 * self.weight)
             * self.duration * self.MINS_IN_HOURS
             )
 
