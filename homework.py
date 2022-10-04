@@ -1,5 +1,5 @@
-from dataclasses import dataclass, asdict
-from typing import ClassVar, Dict, Type, List
+from dataclasses import asdict, dataclass
+from typing import ClassVar, Dict, List, Type
 
 
 @dataclass
@@ -43,7 +43,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError()
+        raise NotImplementedError('Использование абстрактного метода.')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -56,6 +56,7 @@ class Training:
         )
 
 
+@dataclass
 class Running(Training):
     """Тренировка: бег."""
     COEFF_CALORIE_1: ClassVar[int] = 18
@@ -74,9 +75,6 @@ class Running(Training):
 @dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    action: int
-    duration: float
-    weight: float
     height: float
     COEFF_CALORIE_1: ClassVar[float] = 0.035
     COEFF_CALORIE_2: ClassVar[float] = 0.029
@@ -94,9 +92,6 @@ class SportsWalking(Training):
 @dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
-    action: int
-    duration: float
-    weight: float
     length_pool: float
     count_pool: int
     LEN_STEP: ClassVar[float] = 1.38
@@ -120,15 +115,14 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    CODES_AND_CLASSES: Dict[str, Type(Training)] = {
+    CODES_AND_CLASSES: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
     }
     if workout_type not in CODES_AND_CLASSES:
-        raise ValueError()
-    else:
-        return CODES_AND_CLASSES[workout_type](*data)
+        raise ValueError('Обращение по несуществующему ключу.')
+    return CODES_AND_CLASSES[workout_type](*data)
 
 
 def main(training: Training) -> None:
